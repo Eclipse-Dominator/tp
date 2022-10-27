@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
  */
 public class Email extends AbstractAttribute<String> {
 
+    public static final String PREFIX = "e/";
     public static final String TYPE = "Email";
     private static final String SPECIAL_CHARACTERS = "+_.-";
     public static final String MESSAGE_CONSTRAINTS = "Emails should be of the format local-part@domain "
@@ -44,7 +45,7 @@ public class Email extends AbstractAttribute<String> {
      * @param email A valid email address.
      */
     public Email(String email) {
-        super(TYPE, email);
+        super(TYPE, PREFIX, email);
         checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
         value = email;
     }

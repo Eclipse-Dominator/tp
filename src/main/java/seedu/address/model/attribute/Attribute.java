@@ -18,6 +18,11 @@ public interface Attribute<T> {
     String getAttributeType();
 
     /**
+     * Get the prefix of representation of this attribute
+     */
+    String getPrefix();
+
+    /**
      * Get the content of this attribute.
      *
      * @return

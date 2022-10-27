@@ -8,8 +8,9 @@ import java.util.Map;
 public class Description extends AbstractAttribute<String> {
 
     public static final String TYPE = "Description";
+    public static final String PREFIX = "d/";
 
     public Description(String string) {
-        super(TYPE, string);
+        super(TYPE, PREFIX, string);
     }
 }

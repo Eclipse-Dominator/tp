@@ -36,11 +36,12 @@ public abstract class AbstractAttribute<T> implements Attribute<T> {
     protected String typeName;
     private int accessCtrl;
     private int styleFlag;
+    private String prefixName;
 
     /**
      * Creates an instance of an abstract attribute class
      */
-    public AbstractAttribute(String typeName, T value, int accessCtrl, int styleFlag) {
+    public AbstractAttribute(String typeName, String prefixName, T value, int accessCtrl, int styleFlag) {
         requireNonNull(typeName);
         requireNonNull(value);
 
@@ -48,10 +49,11 @@ public abstract class AbstractAttribute<T> implements Attribute<T> {
         this.value = value;
         this.accessCtrl = accessCtrl;
         this.styleFlag = styleFlag;
+        this.prefixName = prefixName;
     }
 
-    public AbstractAttribute(String typeName, T value) {
-        this(typeName, value, DEFAULT, DEFAULT_STYLE);
+    public AbstractAttribute(String typeName, String prefixName,T value) {
+        this(typeName, prefixName, value, DEFAULT, DEFAULT_STYLE);
     }
 
     @Override
@@ -97,6 +99,11 @@ public abstract class AbstractAttribute<T> implements Attribute<T> {
     @Override
     public <U> boolean isSameType(Attribute<U> o) {
         return o.getAttributeType().equals(typeName);
+    }
+
+    @Override
+    public String getPrefix() {
+        return prefixName;
     }
 
     @Override
