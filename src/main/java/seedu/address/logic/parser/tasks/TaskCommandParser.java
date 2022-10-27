@@ -10,6 +10,7 @@ import seedu.address.logic.commands.tasks.DeleteTaskCommand;
 import seedu.address.logic.commands.tasks.ForEachTaskCommand;
 import seedu.address.logic.commands.tasks.MarkTaskCommand;
 import seedu.address.logic.commands.tasks.SelectTaskCommand;
+import seedu.address.logic.commands.tasks.ProgressCommand;
 import seedu.address.logic.commands.tasks.TaskCommand;
 import seedu.address.logic.commands.tasks.UnmarkTaskCommand;
 import seedu.address.logic.parser.Parser;
@@ -19,7 +20,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parser for all Task commands
  */
 public class TaskCommandParser implements Parser<TaskCommand> {
-    private static final String MESSAGE_USAGE = TaskCommand.COMMAND_WORD + " [add|delete|mark|unmark|select|find]";
+    private static final String MESSAGE_USAGE = TaskCommand.COMMAND_WORD
+            + " [add|delete|mark|unmark|select|find|progress]";
     /**
      * Used for initial separation of command word and args.
      */
@@ -56,6 +58,8 @@ public class TaskCommandParser implements Parser<TaskCommand> {
                 return new SelectTaskCommandParser().parse(arguments);
             case ForEachTaskCommand.SUBCOMMAND_WORD:
                 return new ForEachTaskCommandParser().parse(arguments);
+            case ProgressCommand.SUBCOMMAND_WORD:
+                return new ProgressCommandParser().parse(arguments);
             default:
                 throw new ParseException(MESSAGE_USAGE);
         }

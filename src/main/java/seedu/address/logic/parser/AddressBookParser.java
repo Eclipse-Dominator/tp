@@ -14,7 +14,9 @@ import seedu.address.logic.commands.CustomCommandBuilder;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.RemoveFieldCommand;
+import seedu.address.logic.commands.attributes.AddAttributeCommand;
+import seedu.address.logic.commands.attributes.EditAttributeCommand;
+import seedu.address.logic.commands.attributes.RemoveAttributeCommand;
 import seedu.address.logic.commands.RenameCommand;
 import seedu.address.logic.commands.creationcommand.AliasCommand;
 import seedu.address.logic.commands.creationcommand.CreateCommand;
@@ -31,6 +33,9 @@ import seedu.address.logic.commands.operators.PrintCommand;
 import seedu.address.logic.commands.operators.StringReplaceCommand;
 import seedu.address.logic.commands.persons.PersonCommand;
 import seedu.address.logic.commands.tasks.MarkTaskCommand;
+import seedu.address.logic.commands.attributes.AddAttributeCommand;
+import seedu.address.logic.commands.attributes.EditAttributeCommand;
+import seedu.address.logic.commands.attributes.RemoveAttributeCommand;
 import seedu.address.logic.commands.tasks.TaskCommand;
 import seedu.address.logic.commands.tasks.UnmarkTaskCommand;
 import seedu.address.logic.commands.teams.AddUserToTeamCommand;
@@ -69,7 +74,6 @@ public class AddressBookParser {
         defaultMapper.put(ListCommand.COMMAND_WORD, k -> new ListCommand());
         defaultMapper.put(ExitCommand.COMMAND_WORD, k -> new ExitCommand());
         defaultMapper.put(HelpCommand.COMMAND_WORD, k -> new HelpCommand());
-        defaultMapper.put(RemoveFieldCommand.COMMAND_WORD, k -> new RemoveFieldCommandParser().parse(k));
         defaultMapper.put(ClearCommand.COMMAND_WORD, k -> new ClearCommand());
         defaultMapper.put(ChangeTeamCommand.COMMAND_WORD, k -> new ChangeTeamCommandParser().parse(k));
         defaultMapper.put(TaskCommand.COMMAND_WORD, k -> new TaskCommandParser().parse(k));
@@ -92,6 +96,10 @@ public class AddressBookParser {
         defaultMapper.put(CreateCommand.COMMAND_WORD, k -> CreateCommand.parser().parse(k));
         defaultMapper.put(AliasCommand.COMMAND_WORD, k -> AliasCommand.parser().parse(k));
         defaultMapper.put(DeleteCustomCommand.COMMAND_WORD, k -> DeleteCustomCommand.parser().parse(k));
+        defaultMapper.put(AddAttributeCommand.COMMAND_WORD, k -> new AddAttributeCommandParser().parse(arguments));
+        defaultMapper.put(EditAttributeCommand.COMMAND_WORD, k -> new EditAttributeCommandParser().parse(arguments));
+        defaultMapper.put(RemoveAttributeCommand.COMMAND_WORD,
+                k -> new RemoveAttributeCommandParser().parse(arguments));
     }
 
     private AddressBookParser() {
