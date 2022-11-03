@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 
 /**
@@ -47,11 +46,7 @@ public class CustomCommandBuilder {
 
             @Override
             public CommandResult execute(Model model) throws CommandException {
-                try {
-                    return AddressBookParser.get().parseCommand(commandData).setInput(o).execute(model);
-                } catch (ParseException e) {
-                    throw new CommandException(e.getMessage());
-                }
+                return AddressBookParser.quickCommand(commandData, o).execute(model);
             }
         };
     }

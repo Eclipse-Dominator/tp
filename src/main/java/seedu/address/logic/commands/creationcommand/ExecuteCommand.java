@@ -16,7 +16,7 @@ public class ExecuteCommand extends Command {
     public static final String COMMAND_WORD = "e";
     private static final String INVALID_INPUT = "I don't understand the command";
 
-    private String commands;
+    private String commands = "";
     private String bonus = "";
 
     /**

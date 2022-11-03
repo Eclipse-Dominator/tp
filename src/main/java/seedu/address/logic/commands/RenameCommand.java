@@ -89,18 +89,12 @@ public class RenameCommand extends Command {
     }
 
     void executeForTask(Model model) throws CommandException {
-        List<Task> lastShownList = model.getFilteredTaskList();
         Task target;
         if (targetIndex == null && itemToRename == null) {
             throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
         if (itemToRename == null) {
-
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-            }
-
-            target = lastShownList.get(targetIndex.getZeroBased());
+            target = model.getFromFilteredTasks(targetIndex);
         } else {
             target = (Task) itemToRename;
         }
@@ -117,18 +111,12 @@ public class RenameCommand extends Command {
     }
 
     void executeForPerson(Model model) throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
         Person target;
         if (targetIndex == null && itemToRename == null) {
             throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
         if (itemToRename == null) {
-
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-            }
-
-            target = lastShownList.get(targetIndex.getZeroBased());
+            target = model.getFromFilteredPerson(targetIndex);
         } else {
             target = (Person) itemToRename;
         }
@@ -144,18 +132,12 @@ public class RenameCommand extends Command {
     }
 
     void executeForGroup(Model model) throws CommandException {
-        List<Group> lastShownList = model.getFilteredTeamList();
         Group target;
         if (targetIndex == null && itemToRename == null) {
             throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
         if (itemToRename == null) {
-
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-            }
-
-            target = lastShownList.get(targetIndex.getZeroBased());
+            target = model.getFromFilteredTeams(targetIndex);
         } else {
             target = (Group) itemToRename;
         }

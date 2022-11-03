@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.creationcommand;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.CustomCommandBuilder;
 import seedu.address.logic.commands.PureCommand;
@@ -15,7 +17,7 @@ import seedu.address.model.Model;
 public class CreateCommand extends PureCommand {
 
     public static final String COMMAND_WORD = "macro";
-    private static final String INVALID_INPUT = "Invalid syntax!";
+    private static final String INVALID_INPUT = "Syntax error! The command detected is invalid!";
     private static final String INVALID_NAME = "The command name you chose is not available!\n"
         + "Name should be unique with no space, start with a letter, can contain only numbers and letters";
     private static final String USE_EXAMPLE = "create [name] [code]\ne.g. markAllTask task foreach mark";
@@ -42,10 +44,15 @@ public class CreateCommand extends PureCommand {
                 userInput = userInput.trim();
                 String[] tokens = userInput.split("\\s+", 2);
                 if (tokens.length < 2 || tokens[1].trim().length() == 0) {
-                    throw new ParseException(INVALID_INPUT + "\n" + USE_EXAMPLE);
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, USE_EXAMPLE));
                 }
                 String key = tokens[0].trim();
                 String value = tokens[1].trim();
+
+                if (!AddressBookParser.isValidCommand(value)) {
+                    throw new ParseException(INVALID_INPUT);
+                }
+
                 if (AddressBookParser.isValidName(key) && AddressBookParser.get().isKeyAvailable(key)) {
                     return new CreateCommand(new CustomCommandBuilder(key, value));
                 }

@@ -57,6 +57,7 @@ public class AddressBookParser {
 
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final Pattern NAME_CHECK = Pattern.compile("([a-zA-Z][a-zA-Z0-9_\\-]*)");
+    private static final String COMPILE_ERR = "The command failed to compile properly, a syntax error may be present!";
     private static AddressBookParser bp = null;
     private static Map<String, ThrowFunction<String, Command>> defaultMapper;
 
@@ -207,7 +208,22 @@ public class AddressBookParser {
             ret.setInput(ctx);
             return ret;
         } catch (ParseException e) {
-            throw new CommandException(e.getMessage());
+            throw new CommandException(COMPILE_ERR);
+        }
+    }
+
+    /**
+     * Compiles and check if the command is valid
+     *
+     * @param str command to test
+     * @return
+     */
+    public static boolean isValidCommand(String str) {
+        try {
+            AddressBookParser.get().parseCommand(str);
+            return true;
+        } catch (ParseException e) {
+            return false;
         }
     }
 }

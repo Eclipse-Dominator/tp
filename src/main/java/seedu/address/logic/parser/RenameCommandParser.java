@@ -14,7 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class RenameCommandParser implements Parser<RenameCommand> {
     private static final Pattern ADD_ATTRIBUTE_COMMAND_FORMAT = Pattern
-            .compile("(?<type>[ugt])/(?<id>[0-9]+)\\s+(?<newname>.+)");
+        .compile("(?<type>[ugt])/(?<id>[0-9]+)\\s+(?<newname>.+)");
 
     @Override
     public RenameCommand parse(String args) throws ParseException {
@@ -22,38 +22,31 @@ public class RenameCommandParser implements Parser<RenameCommand> {
 
         if (args.trim().length() == 0) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE));
         }
 
         if (!matcher.matches()) {
             return new RenameCommand(args.trim());
         }
 
-        Index index = null;
-
-        try {
-            index = ParserUtil.parseIndex(matcher.group("id").trim());
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE), pe);
-        }
+        Index index = ParserUtil.parseIndex(matcher.group("id").trim());
 
         String newName = matcher.group("newname");
         String type = matcher.group("type");
         ParserUtil.parseName(newName);
 
-        if (type.equals("u")) {
+        switch (type) {
+        case "u":
             return new RenameCommand(index, 2, newName);
-        }
-        if (type.equals("g")) {
+        case "g":
             return new RenameCommand(index, 1, newName);
-        }
-
-        if (type.equals("t")) {
+        case "t":
             return new RenameCommand(index, 3, newName);
+        default:
+            assert false;
         }
 
         throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE));
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, RenameCommand.MESSAGE_USAGE));
     }
 }
